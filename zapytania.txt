@@ -1,0 +1,155 @@
+// ZWIERZETA
+
+set kotek11 = ##class(User.Kot).%New()
+set kotek11.Nazwa = "Kotula"
+set kotek12 = ##class(User.Kot).%New()
+set kotek12.Nazwa = "Kicimalska"
+set kotek21 = ##class(User.Kot).%New()
+set kotek21.Nazwa = "Qt"
+set kotek22 = ##class(User.Kot).%New()
+set kotek22.Nazwa = "Kocisław"
+
+set pies11 = ##class(User.Pies).%New()
+set pies11.Nazwa = "Pieseł"
+set pies12 = ##class(User.Pies).%New()
+set pies12.Nazwa = "Pimpek"
+set pies21 = ##class(User.Pies).%New()
+set pies21.Nazwa = "Puszek"
+set pies22 = ##class(User.Pies).%New()
+set pies22.Nazwa = "Pierd"
+
+// DZIECI
+
+set dziecko11 = ##class(User.Dziecko).%New()
+set dziecko11.Imie = "Zosia"
+set dziecko11.Nazwisko = "ZacnyWas"
+set dziecko11.Wiek = 11
+
+set dziecko12 = ##class(User.Dziecko).%New()
+set dziecko12.Imie = "Rysio"
+set dziecko12.Nazwisko = "ZacnyWas"
+set dziecko12.Wiek = 10
+
+set dziecko13 = ##class(User.Dziecko).%New()
+set dziecko13.Imie = "Helga"
+set dziecko13.Nazwisko = "ZacnyWas"
+set dziecko13.Wiek = 16
+
+set dziecko14 = ##class(User.Dziecko).%New()
+set dziecko14.Imie = "Bożydar"
+set dziecko14.Nazwisko = "ZacnyWas"
+set dziecko14.Wiek = 25
+
+set dziecko21 = ##class(User.Dziecko).%New()
+set dziecko21.Imie = "Morfeusz"
+set dziecko21.Nazwisko = "PodkręconyGringiel"
+set dziecko21.Wiek = 19
+
+set dziecko22 = ##class(User.Dziecko).%New()
+set dziecko22.Imie = "Rexona"
+set dziecko22.Nazwisko = "PodkręconyGringiel"
+set dziecko22.Wiek = 7
+
+//RODZICE
+
+set rodzic11 = ##class(User.Rodzic).%New()
+set rodzic11.Imie = "Kasztanallo"
+set rodzic11.Nazwisko = "ZacnyWas"
+set rodzic11.Wiek = 42
+set rodzic11.Typ = "Tata"
+
+set rodzic12 = ##class(User.Rodzic).%New()
+set rodzic12.Imie = "Monika"
+set rodzic12.Nazwisko = "ZacnyWas"
+set rodzic12.Wiek = 33
+set rodzic12.Typ = "Mama"
+
+set rodzic21 = ##class(User.Rodzic).%New()
+set rodzic21.Imie = "Zorro"
+set rodzic21.Nazwisko = "PodkręconyGringiel"
+set rodzic21.Wiek = 74
+set rodzic21.Typ = "Tatusiarro"
+
+set rodzic22 = ##class(User.Rodzic).%New()
+set rodzic22.Imie = "Andżela"
+set rodzic22.Nazwisko = "PodkręconyGringiel"
+set rodzic22.Wiek = 31
+set rodzic22.Typ = "Mamusia"
+
+// Adres
+
+set adres1 = ##class(User.Adres).%New()
+set adres1.Ulica = "NieBorzęcin"
+set adres1.Numer = 22
+set adres1.Miasto = "Warszawa"
+
+set adres2 = ##class(User.Adres).%New()
+set adres2.Ulica = "Czarnej Dziury"
+set adres2.Numer = 0
+set adres2.Miasto = "Podlasie"
+
+// DOMY
+
+set dom1 = ##class(User.Dom).%New()
+set dom1.Nazwa = "VillusBezBasenus"
+set dom1.LiczbaNiezbitychOkien = 20
+set dom1.Adres = adres1
+
+set kotek11.Dom = dom1
+set kotek12.Dom = dom1
+set pies11.Dom = dom1
+set pies12.Dom = dom1
+
+set dziecko11.Dom = dom1
+set dziecko12.Dom = dom1
+set dziecko13.Dom = dom1
+set dziecko14.Dom = dom1
+set rodzic11.Dom = dom1
+set rodzic12.Dom = dom1
+
+do dom1.Zwierzeta.Insert(kotek11)
+do dom1.Zwierzeta.Insert(kotek12)
+do dom1.Zwierzeta.Insert(pies11)
+do dom1.Zwierzeta.Insert(pies12)
+do dom1.Domownicy.Insert(dziecko11)
+do dom1.Domownicy.Insert(dziecko12)
+do dom1.Domownicy.Insert(dziecko13)
+do dom1.Domownicy.Insert(dziecko14)
+do dom1.Domownicy.Insert(rodzic11)
+do dom1.Domownicy.Insert(rodzic12)
+
+set dom2 = ##class(User.Dom).%New()
+set dom2.Nazwa = "StudniaZDnem"
+set dom2.LiczbaNiezbitychOkien = 1
+set dom2.Adres = adres2
+
+set kotek21.Dom = dom2
+set kotek22.Dom = dom2
+set pies21.Dom = dom2
+set pies22.Dom = dom2
+
+set dziecko21.Dom = dom2
+set dziecko22.Dom = dom2
+set rodzic21.Dom = dom2
+set rodzic22.Dom = dom2
+
+do dom2.Zwierzeta.Insert(kotek21)
+do dom2.Zwierzeta.Insert(kotek22)
+do dom2.Zwierzeta.Insert(pies21)
+do dom2.Zwierzeta.Insert(pies22)
+do dom2.Domownicy.Insert(dziecko21)
+do dom2.Domownicy.Insert(dziecko22)
+do dom2.Domownicy.Insert(rodzic21)
+do dom2.Domownicy.Insert(rodzic22)
+
+// DZIELNIA
+
+set dzielnia = ##class(User.Dzielnia).%New()
+set dzielnia.Nazwa = "Ziomalskie Tereny"
+
+set dom1.Dzielnia = dzielnia
+set dom2.Dzielnia = dzielnia
+
+do dzielnia.Domy.Insert(dom1)
+do dzielnia.Domy.Insert(dom2)
+
