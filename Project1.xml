@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2018.1.2 (Build 309U_SU)" ts="2019-06-05 22:35:14">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2018.1.2 (Build 309U_SU)" ts="2019-06-07 01:43:51">
+<Project name="Project1" LastModified="2019-06-07 00:39:06.587889">
+  <Items>
+    <ProjectItem name="User.Test" type="CLS"></ProjectItem>
+    <ProjectItem name="User.Zwierze" type="CLS"></ProjectItem>
+    <ProjectItem name="User.Domownik" type="CLS"></ProjectItem>
+    <ProjectItem name="User.Rodzic" type="CLS"></ProjectItem>
+    <ProjectItem name="User.Dziecko" type="CLS"></ProjectItem>
+    <ProjectItem name="User.Dom" type="CLS"></ProjectItem>
+    <ProjectItem name="User.Adres" type="CLS"></ProjectItem>
+    <ProjectItem name="User.Dzielnia" type="CLS"></ProjectItem>
+    <ProjectItem name="User.Kot" type="CLS"></ProjectItem>
+    <ProjectItem name="User.Pies" type="CLS"></ProjectItem>
+  </Items>
+</Project>
+
+
 <Class name="User.Adres">
 <Super>%Persistent</Super>
-<TimeChanged>65169,81121.873553</TimeChanged>
+<TimeChanged>65171,5489.362593</TimeChanged>
 <TimeCreated>65169,78337.192583</TimeCreated>
 
 <Property name="Ulica">
@@ -17,15 +33,9 @@
 <Type>%String</Type>
 </Property>
 
-<Property name="Dom">
-<Type>User.Dom</Type>
-<Cardinality>one</Cardinality>
-<Inverse>Adres</Inverse>
-<Relationship>1</Relationship>
-</Property>
-
-<Method name="przedstawChalupe">
-<Implementation><![CDATA[	Write "W mieście zwanym " _ ..Miasto _ " na " _ ..Ulica _ " " _ ..Numer _ " stoi se chałupa, którą ktoś nazwał" _ ..Dom.Nazwa
+<Method name="przedstawAdres">
+<FormalSpec>Nazwa:%String</FormalSpec>
+<Implementation><![CDATA[	Write "W mieście zwanym " _ ..Miasto _ " na " _ ..Ulica _ " " _ ..Numer _ " stoi właśnie ta chałupa, którą ktoś nazwał " _ Nazwa
 ]]></Implementation>
 </Method>
 
@@ -37,8 +47,6 @@
 <IndexLocation>^User.AdresI</IndexLocation>
 <StreamLocation>^User.AdresS</StreamLocation>
 <Data name="AdresDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
@@ -61,7 +69,7 @@
 
 <Class name="User.Dom">
 <Super>%Persistent</Super>
-<TimeChanged>65169,80982.442523</TimeChanged>
+<TimeChanged>65171,6083.148233</TimeChanged>
 <TimeCreated>65169,77930.379256</TimeCreated>
 
 <Property name="LiczbaNiezbitychOkien">
@@ -74,13 +82,17 @@
 
 <Property name="Adres">
 <Type>User.Adres</Type>
-<Cardinality>one</Cardinality>
-<Inverse>Dom</Inverse>
-<Relationship>1</Relationship>
 </Property>
 
 <Property name="Domownicy">
 <Type>User.Domownik</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Dom</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="Zwierzeta">
+<Type>User.Zwierze</Type>
 <Cardinality>many</Cardinality>
 <Inverse>Dom</Inverse>
 <Relationship>1</Relationship>
@@ -93,35 +105,32 @@
 <Relationship>1</Relationship>
 </Property>
 
-<Method name="wypiszDomownikow">
-<ReturnType>%String</ReturnType>
+<Method name="przedstawDomownikow">
 <Implementation><![CDATA[
-	set aaa = ""
 	for i=1:1:..Domownicy.Count()
 	{
-		set x = ..Domownicy.GetAt(i).przedstawSie()
-		set aaa = aaa _ ". " _ x
+		do ..Domownicy.GetAt(i).przedstawSie()
 	}
-	return aaa
 ]]></Implementation>
 </Method>
 
 <Method name="przedstawDom">
 <ReturnType>%String</ReturnType>
 <Implementation><![CDATA[
-	write "Ten dom zwie się " _ ..Nazwa 
+	write ..Adres.przedstawAdres(..Nazwa)
 	write "A teraz domownicy... możecie się przedstawić. "
-	write ..wypiszDomownikow()
+	write ..przedstawDomownikow()
+	write "Zaskakujące jest to, że liczba niezbitych okien na tych włościach wynosi: " _ ..LiczbaNiezbitychOkien
 ]]></Implementation>
 </Method>
 
-<Method name="wypiszDom">
+<Method name="przedstawZwierzeta">
 <ReturnType>%String</ReturnType>
 <Implementation><![CDATA[
-	
-	set dom = "Dom: " _ ..Nazwa _ "  " 
-	set dom = dom _  "Domownicy: "
-	set dom = dom _ ..wypiszDomownikow()
+	for i=1:1:..Zwierzeta.Count()
+	{
+		do ..Zwierzeta.GetAt(i).przedstawSie()
+	}
 ]]></Implementation>
 </Method>
 
@@ -156,7 +165,7 @@
 <Class name="User.Domownik">
 <Abstract>1</Abstract>
 <Super>%Persistent</Super>
-<TimeChanged>65169,80361.512994</TimeChanged>
+<TimeChanged>65171,5770.332384</TimeChanged>
 <TimeCreated>65169,77251.209383</TimeCreated>
 
 <Property name="Dom">
@@ -179,7 +188,7 @@
 </Property>
 
 <Method name="przedstawSie">
-<Implementation><![CDATA[		write "Cześć! Jestem" _ ..Imie _ " " _ ..Nazwisko _ " oraz mam " _ ..Wiek _ " lat na karku."
+<Implementation><![CDATA[		write "Cześć! Jestem " _ ..Imie _ " " _ ..Nazwisko _ " oraz mam " _ ..Wiek _ " lat na karku."
 ]]></Implementation>
 </Method>
 
@@ -213,7 +222,7 @@
 
 <Class name="User.Dziecko">
 <Super>User.Domownik,%Persistent</Super>
-<TimeChanged>65169,80739.878943</TimeChanged>
+<TimeChanged>65171,2875.07545</TimeChanged>
 <TimeCreated>65169,77502.398947</TimeCreated>
 
 <Property name="Ksywa">
@@ -248,7 +257,7 @@
 
 <Class name="User.Dzielnia">
 <Super>%Persistent</Super>
-<TimeChanged>65169,80031.96556</TimeChanged>
+<TimeChanged>65171,2875.005052</TimeChanged>
 <TimeCreated>65169,79099.23789</TimeCreated>
 
 <Property name="Nazwa">
@@ -295,9 +304,43 @@
 </Class>
 
 
+<Class name="User.Kot">
+<Super>User.Zwierze,%Persistent</Super>
+<TimeChanged>65171,5919.372018</TimeChanged>
+<TimeCreated>65171,1822.084768</TimeCreated>
+
+<Method name="przedstawSie">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[		write " Cześć, jestem " _ ..Nazwa _ " i mówię: Miau Miau. "
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+</Storage>
+</Class>
+
+
+<Class name="User.Pies">
+<Super>User.Zwierze,%Persistent</Super>
+<TimeChanged>65171,5927.678025</TimeChanged>
+<TimeCreated>65171,1906.079658</TimeCreated>
+
+<Method name="przedstawSie">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[		write " Cześć, jestem " _ ..Nazwa _ " i mówię: Hau hau. "
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+</Storage>
+</Class>
+
+
 <Class name="User.Rodzic">
 <Super>User.Domownik,%Persistent</Super>
-<TimeChanged>65169,80767.880763</TimeChanged>
+<TimeChanged>65171,5344.686316</TimeChanged>
 <TimeCreated>65169,77480.000881</TimeCreated>
 
 <Property name="Typ">
@@ -318,6 +361,81 @@
 <Subscript>"Rodzic"</Subscript>
 <Value name="1">
 <Value>Typ</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="User.Test">
+<Super>%Persistent</Super>
+<TimeChanged>65169,71651.181491</TimeChanged>
+<TimeCreated>65169,71648.984318</TimeCreated>
+
+<Method name="przedstawSie">
+<Implementation><![CDATA[
+	
+	write "siema"
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^User.TestD</DataLocation>
+<DefaultData>TestDefaultData</DefaultData>
+<IdLocation>^User.TestD</IdLocation>
+<IndexLocation>^User.TestI</IndexLocation>
+<StreamLocation>^User.TestS</StreamLocation>
+<Data name="TestDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="User.Zwierze">
+<Abstract>1</Abstract>
+<Super>%Persistent</Super>
+<TimeChanged>65171,5934.574288</TimeChanged>
+<TimeCreated>65169,71997.238295</TimeCreated>
+
+<Property name="Dom">
+<Type>User.Dom</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Zwierzeta</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="Nazwa">
+<Type>%String</Type>
+</Property>
+
+<Method name="przedstawSie">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[	write " Z tej strony: " + ..Nazwa
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^User.ZwierzeD</DataLocation>
+<DefaultData>ZwierzeDefaultData</DefaultData>
+<IdLocation>^User.ZwierzeD</IdLocation>
+<IndexLocation>^User.ZwierzeI</IndexLocation>
+<StreamLocation>^User.ZwierzeS</StreamLocation>
+<Data name="ZwierzeDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Dom</Value>
+</Value>
+<Value name="3">
+<Value>Nazwa</Value>
 </Value>
 </Data>
 </Storage>
