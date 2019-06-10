@@ -23,9 +23,9 @@ Method przedstawDomownikow()
 
 Method przedstawDom() As %String
 {
-	write ..Adres.przedstawAdres(..Nazwa)
+	do ..Adres.przedstawAdres(..Nazwa)
 	write "A teraz domownicy... możecie się przedstawić. "
-	write ..przedstawDomownikow()
+	do ..przedstawDomownikow()
 	write "Zaskakujące jest to, że liczba niezbitych okien na tych włościach wynosi: " _ ..LiczbaNiezbitychOkien
 }
 
