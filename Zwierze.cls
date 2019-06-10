@@ -5,7 +5,7 @@ Relationship Dom As User.Dom [ Cardinality = one, Inverse = Zwierzeta ];
 
 Property Nazwa As %String;
 
-Method przedstawSie() As %String
+Method przedstawSie()
 {
 	write " Z tej strony: " + ..Nazwa
 }
