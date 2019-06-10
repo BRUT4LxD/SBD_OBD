@@ -153,3 +153,28 @@ set dom2.Dzielnia = dzielnia
 do dzielnia.Domy.Insert(dom1)
 do dzielnia.Domy.Insert(dom2)
 
+// METODA DZIELNI
+do dzielnia.coTamNaDzielniSlychac()
+
+//METODY DOMÓW
+
+do dom1.przedstawDomownikow()
+do dom1.przedstawDom()
+do dom1.przedstawZwierzeta()
+
+do dom2.przedstawDomownikow()
+do dom2.przedstawDom()
+do dom2.przedstawZwierzeta()
+
+// METODY DZIECKA
+
+do dziecko11.buntujSie(rodzic11, "Nie mogę mieszkać w takich warunkach. Ten dom jest za duży. Teraz bieda jest w modzie")
+
+do dziecko21.buntujSie(rodzic22, "To jest skandal! Moja szczoteczka do zebów straciła połysk. Czy nikt mnie tu już nie szanuje?")
+
+do dziecko11.przepros(rodzic12, "Ukradłem samochód koledzie i zaparkowałem go w naszym garażu. W ramach przeprosin możecie zaszaleć nim zaszaleć. TYLKO OSTROŻNIE!!")
+
+
+// METODA ADRESU
+
+do adres1.przedstawAdres(dom1.Nazwa)
